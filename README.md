@@ -13,7 +13,6 @@
 * [ Giới thiệu môn học](#gioithieumonhoc)
 * [ Giảng viên hướng dẫn](#giangvien)
 * [ Thành viên nhóm](#thanhvien)
-* [ Seminar](#seminar)
 * [ Đồ án môn học](#doan)
 
 
