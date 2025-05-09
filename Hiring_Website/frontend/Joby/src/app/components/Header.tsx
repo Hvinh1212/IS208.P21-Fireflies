@@ -64,7 +64,7 @@ const CandidateHeader = ({ onLogout }: { onLogout: () => void }) => {
                 <nav className="hidden md:block">
                     <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-gray-700">
                         <li>
-                            <Link href="/job" className="hover:text-green-500">
+                            <Link href="/" className="hover:text-green-500">
                                 Việc làm
                             </Link>
                         </li>

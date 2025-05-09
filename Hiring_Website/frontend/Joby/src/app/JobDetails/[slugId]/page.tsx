@@ -7,6 +7,7 @@ import JobCard, { JobCardProps } from "@/app/components/JobCard"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "next/navigation"
+import ApplyModal from "@/app/components/ApplyModal"
 
 export default function JobDetails() {
 
@@ -65,8 +66,11 @@ export default function JobDetails() {
         })
     }, [companyId])
 
+    const [showModal, setShowModal] = useState(false);
+
     return (
-        <div className="bg-gray-200">
+
+        <div className="bg-gray-50">
             <div className="mx-40 ">
                 <div className="grid grid-cols-3 gap-10">
                     <div className="col-span-2 flex flex-col gap-10 mt-10 ">
@@ -111,10 +115,12 @@ export default function JobDetails() {
                                 </span>
                             </div>
                             <div className="flex mx-8 gap-5 ">
-                                <button className="bg-green-500 rounded-md text-white py-2 cursor-pointer flex-1 hover:bg-green-600">
+                                <button className="bg-green-500 rounded-md text-white py-2 cursor-pointer flex-1 hover:bg-green-600"
+                                    onClick={() => setShowModal(true)}>
                                     <FontAwesomeIcon icon={faPaperPlane} className="mr-3" />
                                     Ứng tuyển ngay
                                 </button>
+                                {showModal && <ApplyModal onClose={() => setShowModal(false)} />}
                                 <button className="bg-white rounded-md text-green-500 border border-green-500 cursor-pointer px-5 hover:border-green-700">
                                     <FontAwesomeIcon icon={faHeart} className="mr-3" />
                                     Lưu tin
@@ -159,7 +165,8 @@ export default function JobDetails() {
                             <p className="px-12">Ứng viên nộp hồ sơ trực tuyến bằng cách bấm Ứng tuyển ngay dưới đây.</p>
                             <p className="px-12">Hạn nộp hồ sơ: 11/06/2025</p>
                             <div className="mx-8 w-4/10 flex justify-between gap-5 my-4">
-                                <button className="bg-green-500 rounded-md text-white py-2 cursor-pointer flex-1 hover:bg-green-600">
+                                <button className="bg-green-500 rounded-md text-white py-2 cursor-pointer flex-1 hover:bg-green-600"
+                                    onClick={() => setShowModal(true)}>
                                     Ứng tuyển ngay
                                 </button>
                                 <button className="bg-white rounded-md text-green-500 border border-green-500 cursor-pointer px-5 hover:border-green-700">

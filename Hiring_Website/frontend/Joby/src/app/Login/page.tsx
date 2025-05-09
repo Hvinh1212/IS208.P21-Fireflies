@@ -41,6 +41,7 @@ const Login = () => {
                 toast.success('Đăng nhập thành công!');
                 localStorage.setItem('user_id', res.data.user_id);
                 localStorage.setItem('permission', JSON.stringify(res.data.permission));
+                localStorage.setItem('role_id', JSON.stringify(res.data.role_id));
 
                 window.dispatchEvent(new Event('storage'));
 
@@ -63,7 +64,7 @@ const Login = () => {
                                 <Image src={logo} alt="Logo" width={500} />
                             </Link>
                             <p className="text-lg font-medium">
-                                Tiên phong công nghệ - Chất lượng hàng đầu
+                                Cơ hội thật – Công việc chất
                             </p>
                         </div>
                     </div>

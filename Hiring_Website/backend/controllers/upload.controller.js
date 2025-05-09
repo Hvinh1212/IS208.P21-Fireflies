@@ -43,10 +43,10 @@ const uploadPDF = async (req, res) => {
             return res.status(400).json({ message: 'Vui lòng chọn file PDF' });
         }
 
-        const { name, email, phone, job_id, cover_letter } = req.body;
+        const { role_id, name, email, apply_phone, job_id, cover_letter } = req.body;
 
         // Validate các trường bắt buộc
-        if (!name || !email || !phone || !job_id) {
+        if (!name || !email || !apply_phone || !job_id) {
             return res.status(400).json({
                 message: 'Vui lòng điền đầy đủ thông tin bắt buộc (tên, email, số điện thoại, job_id)'
             });
@@ -71,6 +71,7 @@ const uploadPDF = async (req, res) => {
         try {
             // Tạo application mới
             const applicationData = {
+                role_id,
                 name,
                 email,
                 apply_phone,

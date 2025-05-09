@@ -18,7 +18,7 @@ export default function Hero() {
                         <span className="text-gray-700">Khởi đầu thành công</span>
                     </h2>
                     <p className="mt-6 text-gray-600 text-lg max-w-lg mx-auto md:mx-0">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea, maxime! Voluptate praesentium est beatae! Quo labore consequuntur hic ratione! Sint labore consequatur inventore delectus. Veritatis illo saepe autem perferendis alias?
+                        Joby Hiring là nền tảng tuyển dụng hiện đại, kết nối ứng viên tiềm năng với hàng ngàn cơ hội nghề nghiệp chất lượng. Với quy trình tìm việc thông minh, bộ lọc linh hoạt và hỗ trợ nhà tuyển dụng tối ưu, chúng tôi giúp bạn khởi đầu sự nghiệp vững chắc và phát triển lâu dài.
                     </p>
                     <div className="mt-8 space-y-4 md:space-y-0 md:space-x-6 flex flex-col md:flex-row items-center justify-center md:justify-start">
                         <motion.a

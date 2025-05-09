@@ -82,7 +82,7 @@ const SignUp = () => {
                             <Image src={logo} alt="Logo" width={500} />
                         </Link>
                         <p style={{ fontSize: "20px", fontWeight: "500" }}>
-                            Tiên phong công nghệ - Chất lượng hàng đầu
+                            Cơ hội thật – Công việc chất
                         </p>
                     </div>
                 </div>
