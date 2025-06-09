@@ -19,7 +19,6 @@ const User = {
                 });
             }
 
-            // Chèn user và lấy id được tạo ra
             const insertUserResult = await db`
                 INSERT INTO users (
                     user_login_name, full_name, user_password,  
