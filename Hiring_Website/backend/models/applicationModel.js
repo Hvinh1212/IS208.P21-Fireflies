@@ -28,7 +28,7 @@ const Application = {
     },
 
     getByEmployerId: async (employerId) => {
-        const result = await db`select applications.id, candidate_id, name, email, apply_phone, job_id, cover_letter, resume, email, apply_phone, name, applications.status, applied_at, jobs.title, jobs.employer_id  from applications join jobs on applications.job_id = jobs.id where jobs.employer_id = ${employerId}`;
+        const result = await db`select applications.id, candidate_id, name, email, apply_phone, job_id, cover_letter, resume, email, apply_phone, name, applications.status, applied_at, jobs.title, jobs.employer_id  from applications join jobs on applications.job_id = jobs.id where jobs.employer_id = ${employerId} and applications.is_verify = true`;
         return result;
     },
 

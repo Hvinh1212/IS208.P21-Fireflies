@@ -38,7 +38,6 @@ WHERE user_login_name = $1 AND user_password = $2`;
                 return {
                     success: false,
                     message: "Người dùng chưa đăng ký",
-
                 };
 
             }
