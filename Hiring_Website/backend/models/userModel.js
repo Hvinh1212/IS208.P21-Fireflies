@@ -19,9 +19,10 @@ const User = {
                 });
             }
 
-            await db`
+            // Chèn user và lấy id được tạo ra
+            const insertUserResult = await db`
                 INSERT INTO users (
-                    user_login_name,  full_name,  user_password,  
+                    user_login_name, full_name, user_password,  
                     user_email, permis
                 ) VALUES (
                     ${userData.user_login_name},
@@ -29,6 +30,16 @@ const User = {
                     ${userData.user_password},
                     ${userData.user_email},
                     'candidate'
+                ) RETURNING id
+            `;
+
+            const user_id = insertUserResult[0].id;
+
+            await db`
+                INSERT INTO candidates (
+                    user_id
+                ) VALUES (
+                    ${user_id}
                 )
             `;
 
@@ -41,6 +52,7 @@ const User = {
             return callback(err, null);
         }
     }
+
 };
 
 module.exports = User;
