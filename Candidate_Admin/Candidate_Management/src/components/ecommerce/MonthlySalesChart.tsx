@@ -3,15 +3,25 @@ import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
 import { MoreDotIcon } from "@/icons";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 
-// Dynamically import the ReactApexChart component
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
 export default function MonthlySalesChart() {
+  const [applications, setApplications] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const applications = await fetch("http://localhost:5000/applications");
+      const data = await applications.json();
+      setApplications(data);
+    };
+    fetchData();
+  }, []);
+
   const options: ApexOptions = {
     colors: ["#465fff"],
     chart: {
@@ -91,12 +101,21 @@ export default function MonthlySalesChart() {
       },
     },
   };
+  
+  const monthlyCounts = Array(12).fill(0);
+
+  applications.forEach((application) => {
+    const month = new Date(application.applied_at).getMonth();
+    monthlyCounts[month]++;
+  });
+
   const series = [
     {
-      name: "Sales",
-      data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
+      name: "Applications",
+      data: monthlyCounts,
     },
   ];
+
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropdown() {

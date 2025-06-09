@@ -35,11 +35,8 @@ export default function ApplicationFilters() {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">Tất cả trạng thái</SelectItem>
-                            <SelectItem value="pending">Đang xử lý</SelectItem>
-                            <SelectItem value="reviewed">Đã đánh giá</SelectItem>
-                            <SelectItem value="interview">Phỏng vấn</SelectItem>
-                            <SelectItem value="accepted">Chấp nhận</SelectItem>
-                            <SelectItem value="rejected">Từ chối</SelectItem>
+                            <SelectItem value="pending">Đã phê duyệt</SelectItem>
+                            <SelectItem value="approved">Chưa phê duyệt</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

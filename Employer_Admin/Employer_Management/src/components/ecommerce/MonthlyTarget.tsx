@@ -12,8 +12,38 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-export default function MonthlyTarget() {
+type Post = {
+  posted_at: string;
+};
+
+interface MonthlyTargetProps {
+  posts: Post[];
+}
+
+export default function MonthlyTarget({ posts }: MonthlyTargetProps) {
   const series = [75.55];
+
+  const today = new Date();
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
+
+  const todayCount = posts.filter((a) => {
+    const date = new Date(a.posted_at);
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === currentMonth &&
+      date.getFullYear() === currentYear
+    );
+  }).length;
+
+  const monthCount = posts.filter((a) => {
+    const date = new Date(a.posted_at);
+    return (
+      date.getMonth() === currentMonth &&
+      date.getFullYear() === currentYear
+    );
+  }).length;
+
   const options: ApexOptions = {
     colors: ["#465FFF"],
     chart: {
@@ -125,7 +155,7 @@ export default function MonthlyTarget() {
           </span>
         </div>
         <p className="mx-auto mt-10 w-full max-w-[380px] text-center text-sm text-gray-500 sm:text-base">
-          30 bài tuyển dụng hôm nay, nhiều hơn tháng trước
+          {todayCount} bài tuyển dụng hôm nay, nhiều hơn tháng trước
         </p>
       </div>
 
@@ -160,7 +190,7 @@ export default function MonthlyTarget() {
             Thực tế
           </p>
           <p className="flex items-center justify-center gap-1 text-base font-semibold text-gray-800 dark:text-white/90 sm:text-lg">
-            67
+            {monthCount}
             <svg
               width="16"
               height="16"
@@ -185,7 +215,7 @@ export default function MonthlyTarget() {
             Hôm nay
           </p>
           <p className="flex items-center justify-center gap-1 text-base font-semibold text-gray-800 dark:text-white/90 sm:text-lg">
-            30
+            {todayCount}
             <svg
               width="16"
               height="16"

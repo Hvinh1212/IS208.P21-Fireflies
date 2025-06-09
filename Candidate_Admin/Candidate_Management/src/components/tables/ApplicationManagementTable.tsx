@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Table,
     TableBody,
@@ -11,227 +11,219 @@ import {
 import Badge from "../ui/badge/Badge";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Check, X, ShieldCheck } from "lucide-react";
+import axios from "axios";
 
 interface Application {
-    id: string;
-    candidateName: string;
-    jobTitle: string;
-    status: "pending" | "reviewed" | "interview" | "accepted" | "rejected";
-    email: string;
-    phone: string;
-    resumeUrl: string;
+    id: number;
+    candidate_id: number;
+    name: string | null;
+    email: string | null;
+    apply_phone: string | null;
+    job_id: number;
+    cover_letter: string | null;
+    resume: string | null;
+    is_verify: boolean;
+    applied_at: string;
+    title: string;
+    employer_id: number;
 }
 
-// Sample data - replace with actual data from your backend
-const initialData: Application[] = [
-    {
-        id: "APP001",
-        candidateName: "Trần Ngọc Minh Trang",
-        jobTitle: "Frontend Developer",
-        status: "pending",
-        email: "nguyenvana@email.com",
-        phone: "0123456789",
-        resumeUrl: "/resumes/candidate1.pdf"
-    },
-    {
-        id: "APP002",
-        candidateName: "Nguyễn Thị Ngọc Trâm",
-        jobTitle: "Frontend Developer",
-        status: "pending",
-        email: "nguyenvana@email.com",
-        phone: "0123456789",
-        resumeUrl: "/resumes/candidate1.pdf"
-    },
-    {
-        id: "APP003",
-        candidateName: "Nguyễn Trần Kim Hân",
-        jobTitle: "Frontend Developer",
-        status: "pending",
-        email: "nguyenvana@email.com",
-        phone: "0123456789",
-        resumeUrl: "/resumes/candidate1.pdf"
-    },
-    {
-        id: "APP004",
-        candidateName: "Nguyễn Ngọc Thịnh",
-        jobTitle: "Frontend Developer",
-        status: "pending",
-        email: "nguyenvana@email.com",
-        phone: "0123456789",
-        resumeUrl: "/resumes/candidate1.pdf"
-    },
-    {
-        id: "APP005",
-        candidateName: "Mai Hoàng Vinh",
-        jobTitle: "Frontend Developer",
-        status: "pending",
-        email: "nguyenvana@email.com",
-        phone: "0123456789",
-        resumeUrl: "/resumes/candidate1.pdf"
-    },
-    // Add more sample data as needed
-];
-
 export default function ApplicationManagementTable() {
-    const [applications, setApplications] = useState<Application[]>(initialData);
+    const [applications, setApplications] = useState<Application[]>([]);
     const [selectedResume, setSelectedResume] = useState<string | null>(null);
-    const [isResumeOpen, setIsResumeOpen] = useState(false);
+    const [showResumeDialog, setShowResumeDialog] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleStatusChange = (applicationId: string, newStatus: Application["status"]) => {
-        setApplications(applications.map(app =>
-            app.id === applicationId ? { ...app, status: newStatus } : app
-        ));
-    };
+    useEffect(() => {
+        const fetchApplications = async () => {
+            try {
+                setIsLoading(true);
+                const response = await axios.get('http://localhost:5000/applications');
+                const normalized = response.data.map((app: any) => ({
+                    ...app,
+                    is_verify: app.is_verify === true || app.is_verify === 1 || app.is_verify === "true",
+                }));
+                setApplications(normalized);
+                setError(null);
+            } catch (err) {
+                setError('Không thể tải dữ liệu ứng viên. Vui lòng thử lại sau.');
+                console.error('Error fetching applications:', err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    const getStatusColor = (status: Application["status"]) => {
-        switch (status) {
-            case "pending":
-                return "warning";
-            case "reviewed":
-                return "info";
-            case "interview":
-                return "primary";
-            case "accepted":
-                return "success";
-            case "rejected":
-                return "error";
-            default:
-                return "default";
+        fetchApplications();
+    }, []);
+
+
+    const handleVerifyChange = async (applicationId: number, verify: boolean) => {
+        try {
+            await axios.put(`http://localhost:5000/applications/${applicationId}/verify`, {
+                is_verify: verify
+            });
+
+            setApplications(applications.map(app =>
+                app.id === applicationId
+                    ? { ...app, is_verify: verify }
+                    : app
+            ));
+        } catch (err) {
+            console.error('Error updating verification status:', err);
+            setError('Không thể cập nhật trạng thái. Vui lòng thử lại sau.');
         }
     };
 
-    const getStatusText = (status: Application["status"]) => {
-        switch (status) {
-            case "pending":
-                return "Đang xử lý";
-            case "reviewed":
-                return "Đã đánh giá";
-            case "interview":
-                return "Phỏng vấn";
-            case "accepted":
-                return "Chấp nhận";
-            case "rejected":
-                return "Từ chối";
-            default:
-                return status;
-        }
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleString('vi-VN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
     };
 
     return (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
-            <div className="max-w-full overflow-x-auto">
-                <Table>
-                    <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
-                        <TableRow>
-                            <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
-                                Mã ứng viên
-                            </TableCell>
-                            <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
-                                Tên ứng viên
-                            </TableCell>
-                            <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
-                                Tên công việc
-                            </TableCell>
+        <div className="w-full">
+            {error && (
+                <div className="mb-4 p-4 text-red-600 bg-red-50 rounded-md dark:bg-red-900/20 dark:text-red-400">
+                    {error}
+                </div>
+            )}
 
-                            <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
-                                Email
-                            </TableCell>
-                            <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
-                                Số điện thoại
-                            </TableCell>
-                            <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
-                                Resume
-                            </TableCell>
-                            <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
-                                Trạng thái
-                            </TableCell>
-                        </TableRow>
-                    </TableHeader>
-
-                    <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                        {applications.map((application) => (
-                            <TableRow key={application.id}>
-                                <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
-                                    {application.id}
+            {isLoading ? (
+                <div className="flex items-center justify-center p-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
+                </div>
+            ) : (
+                <div className="rounded-md border">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                    Mã ứng viên
                                 </TableCell>
-                                <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
-                                    {application.candidateName}
+                                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                    Tên ứng viên
                                 </TableCell>
-                                <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
-                                    {application.jobTitle}
+                                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                    Tên công việc
                                 </TableCell>
-
-                                <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
-                                    {application.email}
+                                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                    Ngày ứng tuyển
                                 </TableCell>
-                                <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
-                                    {application.phone}
+                                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                    Resume
                                 </TableCell>
-                                <TableCell className="px-5 py-4">
-                                    <Button
-                                        variant="outline"
-                                        onClick={() => {
-                                            setSelectedResume(application.resumeUrl);
-                                            setIsResumeOpen(true);
-                                        }}
-                                    >
-                                        <span className="text-sm">Xem Resume</span>
-                                    </Button>
+                                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                    Trạng thái xác thực
                                 </TableCell>
-                                <TableCell className="px-5 py-4">
-                                    <Select
-                                        value={application.status}
-                                        onValueChange={(value: Application["status"]) =>
-                                            handleStatusChange(application.id, value)
-                                        }
-                                    >
-                                        <SelectTrigger className="w-[140px]">
-                                            <SelectValue>
-                                                <Badge color={getStatusColor(application.status)}>
-                                                    {getStatusText(application.status)}
-                                                </Badge>
-                                            </SelectValue>
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="pending">
-                                                <Badge color="warning">Đang xử lý</Badge>
-                                            </SelectItem>
-                                            <SelectItem value="reviewed">
-                                                <Badge color="info">Đã đánh giá</Badge>
-                                            </SelectItem>
-                                            <SelectItem value="interview">
-                                                <Badge color="primary">Phỏng vấn</Badge>
-                                            </SelectItem>
-                                            <SelectItem value="accepted">
-                                                <Badge color="success">Chấp nhận</Badge>
-                                            </SelectItem>
-                                            <SelectItem value="rejected">
-                                                <Badge color="error">Từ chối</Badge>
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                    Thao tác
                                 </TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
+                        </TableHeader>
+                        <TableBody>
+                            {applications.map((application) => (
+                                <TableRow key={application.id}>
+                                    <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
+                                        {application.candidate_id}
+                                    </TableCell>
+                                    <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
+                                        {application.name || 'N/A'}
+                                    </TableCell>
+                                    <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
+                                        {application.title}
+                                    </TableCell>
+                                    <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
+                                        {formatDate(application.applied_at)}
+                                    </TableCell>
+                                    <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
+                                        {application.resume ? (
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="flex items-center gap-2"
+                                                onClick={() => {
+                                                    setSelectedResume(application.resume);
+                                                    setShowResumeDialog(true);
+                                                }}
+                                            >
+                                                <span className="text-sm">Xem Resume</span>
+                                            </Button>
+                                        ) : (
+                                            <span className="text-gray-500">Không có</span>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
+                                        {application.is_verify ? (
+                                            <Badge color="success" className="flex items-center gap-1">
+                                                <ShieldCheck className="h-3 w-3" />
+                                                Đã duyệt
+                                            </Badge>
+                                        ) : (
+                                            <Badge color="warning" className="flex items-center gap-1">
+                                                Chưa duyệt
+                                            </Badge>
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="px-5 py-4 text-gray-800 dark:text-white/90">
+                                        <div className="flex items-center gap-2">
+                                            {/* Chỉ hiển thị nút "Duyệt" nếu chưa được xác thực */}
+                                            {!application.is_verify && (
+                                                <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                    className="flex items-center gap-2 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+                                                    onClick={() => handleVerifyChange(application.id, true)}
+                                                >
+                                                    <Check className="h-4 w-4" />
+                                                    <span className="text-sm">Duyệt</span>
+                                                </Button>
+                                            )}
 
-            <Dialog open={isResumeOpen} onOpenChange={setIsResumeOpen}>
+                                            {/* Nút "Từ chối" luôn hiển thị */}
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="flex items-center gap-2 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                                                onClick={() => handleVerifyChange(application.id, false)}
+                                            >
+                                                <X className="h-4 w-4" />
+                                                <span className="text-sm">Từ chối</span>
+                                            </Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </div>
+            )}
+
+            {/* Resume Dialog */}
+            <Dialog open={showResumeDialog} onOpenChange={setShowResumeDialog}>
                 <DialogContent className="max-w-4xl">
                     <DialogHeader>
-                        <DialogTitle>Resume của ứng viên</DialogTitle>
+                        <DialogTitle>
+                            <div className="flex items-center gap-2">
+                                Resume của ứng viên
+                            </div>
+                        </DialogTitle>
                     </DialogHeader>
                     {selectedResume && (
                         <iframe
                             src={selectedResume}
-                            className="w-full h-[600px]"
-                            title="Resume PDF"
+                            className="w-full h-[80vh] border-0"
+                            title="Resume"
                         />
                     )}
                 </DialogContent>
             </Dialog>
         </div>
     );
-} 
+}

@@ -116,7 +116,7 @@ const Login = () => {
                                         <div className="mt-4 text-right mr-4">
                                             <p>
                                                 Quên mật khẩu?{" "}
-                                                <Link href="/dang-nhap/quen-mat-khau" className="text-cyan-800 hover:text-blue-900">
+                                                <Link href="/ForgotPass" className="text-green-800 hover:text-green-900">
                                                     Lấy lại mật khẩu
                                                 </Link>
                                             </p>
@@ -136,7 +136,7 @@ const Login = () => {
                                 <div className="mt-6 text-center">
                                     <p>
                                         Chưa có tài khoản?{" "}
-                                        <Link href="/dang-ky" className="text-cyan-800 hover:text-blue-900">
+                                        <Link href="/SignUp" className="text-green-800 hover:text-green-900">
                                             Đăng ký ngay
                                         </Link>
                                     </p>

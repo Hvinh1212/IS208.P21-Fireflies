@@ -2,7 +2,7 @@ const db = require("../config/db")
 
 const Application = {
     getAll: async () => {
-        const result = await db`select * from applications`;
+        const result = await db`select applications.id, candidate_id, name, email, apply_phone, job_id, cover_letter, resume, email, apply_phone,applications.is_verify, name, applications.status, applied_at, jobs.title, jobs.employer_id from applications join jobs on applications.job_id = jobs.id`;
         return result;
     },
 
@@ -25,6 +25,31 @@ const Application = {
     getByJobId: async (jobId) => {
         const result = await db`select * from applications where job_id = ${jobId}`;
         return result;
+    },
+
+    getByEmployerId: async (employerId) => {
+        const result = await db`select applications.id, candidate_id, name, email, apply_phone, job_id, cover_letter, resume, email, apply_phone, name, applications.status, applied_at, jobs.title, jobs.employer_id  from applications join jobs on applications.job_id = jobs.id where jobs.employer_id = ${employerId}`;
+        return result;
+    },
+
+    updateStatus: async (id, status) => {
+        const result = await db`
+            UPDATE applications 
+            SET status = ${status}
+            WHERE id = ${id}
+            RETURNING *
+        `;
+        return result[0];
+    },
+
+    updateVerification: async (id, is_verify) => {
+        const result = await db`
+            UPDATE applications 
+            SET is_verify = ${is_verify}
+            WHERE id = ${id}
+            RETURNING *
+        `;
+        return result[0];
     }
 }
 

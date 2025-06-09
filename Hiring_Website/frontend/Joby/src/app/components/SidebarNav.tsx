@@ -19,19 +19,16 @@ export default function SideNavbar() {
         <Disclosure as="nav" className="relative">
             {({ open }) => (
                 <>
-                    {/* Burger button */}
                     <div className="md:hidden p-4">
                         <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-800 hover:bg-gray-900 hover:text-white">
                             <GiHamburgerMenu className="h-6 w-6" />
                         </Disclosure.Button>
                     </div>
 
-                    {/* Sidebar on mobile */}
                     <Disclosure.Panel className="fixed inset-y-0 left-0 z-30 w-60 bg-white p-6 shadow-lg md:hidden transition-transform transform duration-300 ease-in-out">
                         <SidebarContent />
                     </Disclosure.Panel>
 
-                    {/* Sidebar on desktop */}
                     <div className="hidden md:flex flex-col w-60 bg-white p-6 shadow-lg min-h-screen rounded-xl">
                         <SidebarContent />
                     </div>
@@ -50,25 +47,29 @@ function SidebarContent() {
                 {[
                     { icon: CgProfile, label: 'Tin tuyển dụng', link: "/Vacancy" },
                     { icon: FaRegComments, label: 'Theo dõi', link: "/HiringTracking" },
-                    { icon: MdOutlineAnalytics, label: 'Phân tích', link: "/analize" },
+                    { icon: MdOutlineAnalytics, label: 'Phân tích', link: "/Analize" },
                     { icon: MdOutlineSpaceDashboard, label: 'Kiểm tra đầu vào', link: "/Testing" },
                 ].map((item, idx) => (
                     <SidebarItem key={idx} Icon={item.icon} label={item.label} link={item.link} />
                 ))}
 
-                <div className="border-t pt-4 mt-4">
-                    {[
-                        { icon: MdOutlineSettings, label: 'Cài đặt' },
-                        { icon: MdOutlineMoreHoriz, label: 'Xem thêm' },
-                    ].map((item, idx) => (
-                        <SidebarItem key={idx} Icon={item.icon} label={item.label} />
-                    ))}
-                </div>
+                <div className="border-t pt-4 mt-4"> </div>
+                {[
+                    { icon: MdOutlineSettings, label: 'Cài đặt', link: "/Setting" },
+                    { icon: MdOutlineMoreHoriz, label: 'Xem thêm', link: "/More" },
+                ].map((item, idx) => (
+                    <SidebarItem key={idx} Icon={item.icon} label={item.label} link={item.link} />
+                ))}
+
+                <div className="pt-4 border-t mt-4"> </div>
+                {[
+                    { icon: MdArrowBack, label: 'Trở về', link: "/#" },
+                ].map((item, idx) => (
+                    <SidebarItem key={idx} Icon={item.icon} label={item.label} link={item.link} />
+                ))}
             </div>
 
-            <div className="pt-4 border-t mt-4">
-                <SidebarItem Icon={MdArrowBack} label="Trở về" />
-            </div>
+
         </div>
     );
 }

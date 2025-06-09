@@ -38,9 +38,8 @@ export default function JobDetails() {
     const [company_size, setCompany_size] = useState('');
     const [category_name, setCategory_name] = useState('');
     const [job_type, setJob_type] = useState('');
-
-
-
+    const [job_description, setJob_description] = useState('');
+    const [deadline, setDeadline] = useState('');
 
     const [jobs, setJobs] = useState<JobCardProps[]>([]);
 
@@ -58,6 +57,8 @@ export default function JobDetails() {
             setCompany_size(res.data.company_size)
             setCategory_name(res.data.category_name)
             setJob_type(res.data.job_type)
+            setJob_description(res.data.description)
+            setDeadline(new Date(res.data.deadline).toLocaleDateString('vi-VN'))
         })
 
         axios.get(`http://localhost:5000/posts/employer/` + companyId).then((res) => {
@@ -111,7 +112,7 @@ export default function JobDetails() {
                             <div className="mb-5">
                                 <span className="mx-8 py-2 px-2 bg-gray-200 rounded-sm">
                                     <FontAwesomeIcon icon={faClock} className="pr-3" />
-                                    Hạn nộp hồ sơ: 21/6/2025
+                                    Hạn nộp hồ sơ: {deadline}
                                 </span>
                             </div>
                             <div className="flex mx-8 gap-5 ">
@@ -130,40 +131,10 @@ export default function JobDetails() {
                         </div>
                         <div className="bg-white rounded-xl py-5 mb-5">
                             <p className="border-l-6 border-l-green-500 px-3 font-semibold text-xl mx-8 mb-5">Chi tiết tuyển dụng</p>
-                            <p className="mx-8 font-semibold">Mô tả công việc</p>
-                            <ul className="px-15 list-disc">
-                                <li>Tính lương cho người lao động Việt Nam </li>
-                                <li>Đảm bảo nộp báo cáo Lương đúng hạn.</li>
-                                <li>Lập chứng từ để Kế toán thanh toán lương</li>
-                                <li>Theo dõi báo cáo BHXH hàng tháng</li>
-                                <li>Hỗ trợ Kế Toán làm báo cáo quyết toán thuế TNCN hằng năm</li>
-                                <li>Đăng ký mã số thuế TNCN cho toàn bộ nhân viên</li>
-                            </ul>
-                            <p className="mx-8 font-semibold">Yêu cầu ứng viên</p>
-                            <ul className="px-15 list-disc">
-                                <li>Tốt nghiệp Cao Đẳng trở lên các chuyên ngành như quản trị nhân lực, luật, kinh tế,...</li>
-                                <li>Có kiến thức chuyên môn về nhân sự, chính sách lao động tiền lương, Luật Lao động,...</li>
-                                <li>Có kinh nghiệm C&B từ 2 năm trở lên. Giỏi excel, tư duy phân tích số liệu.</li>
-                                <li>Ưu tiên ứng viên có kinh nghiệm làm việc tại các công ty dịch vụ tính lương; ứng viên mạnh về Luật Lao động.</li>
-                                <li>Kỹ năng giao tiếp, trình bày tốt. Kỹ năng giải quyết vấn đề, làm việc độc lập hoặc theo nhóm.</li>
-                                <li>Tiếng Anh lưu loát , chỉ nhận CV bằng Tiếng Anh</li>
-                            </ul>
-                            <p className="mx-8 font-semibold">Quyền lợi</p>
-                            <ul className="px-15 list-disc">
-                                <li>Hưởng các quyền lợi theo Luật lao động, đóng 100% bảo hiểm trên mức lương cơ bản và phụ cấp lương</li>
-                                <li>Thưởng KPI, sinh nhật, phụ cấp thâm niên theo từng năm</li>
-                                <li>Tăng lương hằng năm theo quy định của công ty vào tháng 3 và theo chế độ của nhà nước</li>
-                                <li>Khám sức khỏe định kỳ</li>
-                                <li>Quà lễ tết từ công ty, công đoàn</li>
-                                <li>Môi trường làm việc chuyên nghiệp, thân thiện, an toàn, cạnh tranh lành mạnh</li>
-                            </ul>
-                            <p className="mx-8 font-semibold">Địa điểm làm việc</p>
-                            <p className="px-12">Đồng Nai: Lô 406, Đường số 13, KCN Long Bình (Amata), Phường Long Bình, Biên Hoà</p>
-                            <p className="mx-8 font-semibold">Thời gian làm việc</p>
-                            <p className="px-12">Thứ 2 - Thứ 6 (từ 07:30 đến 16:30)</p>
-                            <p className="mx-8 font-semibold">Cách thức ứng tuyển</p>
-                            <p className="px-12">Ứng viên nộp hồ sơ trực tuyến bằng cách bấm Ứng tuyển ngay dưới đây.</p>
-                            <p className="px-12">Hạn nộp hồ sơ: 11/06/2025</p>
+                            <div className="px-15 whitespace-pre-line">
+                                {job_description.replace(/\\n/g, '\n')}
+                            </div>
+
                             <div className="mx-8 w-4/10 flex justify-between gap-5 my-4">
                                 <button className="bg-green-500 rounded-md text-white py-2 cursor-pointer flex-1 hover:bg-green-600"
                                     onClick={() => setShowModal(true)}>

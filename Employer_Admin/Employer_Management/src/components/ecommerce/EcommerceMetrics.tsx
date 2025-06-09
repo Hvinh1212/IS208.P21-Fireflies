@@ -1,9 +1,24 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Badge from "../ui/badge/Badge";
 import { ArrowDownIcon, ArrowUpIcon, BoxIconLine, GroupIcon } from "@/icons";
 
 export const EcommerceMetrics = () => {
+
+  const [employers, setEmployers] = useState<any[]>([]);
+  const [posts, setPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const employers = await fetch("http://localhost:5000/employers");
+      const posts = await fetch("http://localhost:5000/posts");
+      const data1 = await employers.json();
+      const data2 = await posts.json();
+      setEmployers(data1);
+      setPosts(data2);
+    };
+    fetchData();
+  }, []);
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
       {/* <!-- Metric Item Start --> */}
@@ -18,7 +33,7 @@ export const EcommerceMetrics = () => {
               Nhà tuyển dụng
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              14
+              {employers.length}
             </h4>
           </div>
           <Badge color="success">
@@ -40,7 +55,7 @@ export const EcommerceMetrics = () => {
               Tin tuyển dụng
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              196
+              {posts.length}
             </h4>
           </div>
 

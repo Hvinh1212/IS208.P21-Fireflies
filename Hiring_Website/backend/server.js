@@ -35,6 +35,12 @@ const locationRoute = require("./routes/locationRoute.js");
 const jobTypeRoute = require("./routes/jobTypeRoute.js");
 const uploadRoute = require("./routes/upload.routes.js");
 const loginRoute = require("./routes/loginRoute.js")
+const mailTimeRoute = require("./routes/mailTimeRoute.js")
+const branchRoute = require("./routes/branchRoute.js")
+const categoryRoute = require("./routes/categoryRoute.js")
+const forgotPassRoute = require("./routes/forgotPassRoute.js")
+const confirmPassRoute = require("./routes/confirmPassRoute.js")
+
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -50,7 +56,11 @@ app.use("/", locationRoute);
 app.use("/", jobTypeRoute);
 app.use("/upload", uploadRoute);
 app.use("/", loginRoute);
-
+app.use("/", mailTimeRoute)
+app.use("/", branchRoute)
+app.use("/", categoryRoute)
+app.use("/", forgotPassRoute)
+app.use("/", confirmPassRoute)
 
 
 app.listen(PORT, () => {

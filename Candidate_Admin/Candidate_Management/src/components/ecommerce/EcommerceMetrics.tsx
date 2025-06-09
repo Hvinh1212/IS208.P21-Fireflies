@@ -2,8 +2,24 @@
 import React from "react";
 import Badge from "../ui/badge/Badge";
 import { ArrowDownIcon, ArrowUpIcon, BoxIconLine, GroupIcon } from "@/icons";
+import { useEffect, useState } from "react";
 
 export const EcommerceMetrics = () => {
+  const [candidates, setCandidates] = useState<any[]>([]);
+  const [applications, setApplications] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const candidates = await fetch("http://localhost:5000/candidates");
+      const applications = await fetch("http://localhost:5000/applications");
+      const data1 = await candidates.json();
+      const data2 = await applications.json();
+      setCandidates(data1);
+      setApplications(data2);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
       {/* <!-- Metric Item Start --> */}
@@ -18,7 +34,7 @@ export const EcommerceMetrics = () => {
               Ứng viên
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              79
+              {candidates.length}
             </h4>
           </div>
           <Badge color="success">
@@ -40,7 +56,7 @@ export const EcommerceMetrics = () => {
               Hồ sơ & CV
             </span>
             <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
-              114
+              {applications.length}
             </h4>
           </div>
 

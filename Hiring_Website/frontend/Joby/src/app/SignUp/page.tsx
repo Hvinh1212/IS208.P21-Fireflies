@@ -52,8 +52,7 @@ const SignUp = () => {
         }
 
         try {
-            const res = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/register`,
+            const res = await axios.post("http://localhost:5000/users/register",
                 {
                     user_login_name: userName,
                     user_password: password,
@@ -65,7 +64,7 @@ const SignUp = () => {
                 toast.error("Email đã được đăng ký");
             } else {
                 toast.success("Đăng kí thành công, mời đăng nhập");
-                router.push("/login");
+                router.push("/Login");
             }
         } catch (err) {
             console.error(err);
@@ -179,7 +178,7 @@ const SignUp = () => {
 
                         <button
                             onClick={handleClick}
-                            className="w-full rounded-lg border border-primary bg-green-500 p-4 text-white hover:bg-opacity-90"
+                            className="w-full rounded-lg border border-primary bg-green-500 p-4 text-white hover:bg-opacity-90 cursor-pointer"
                         >
                             Đăng ký
                         </button>
@@ -187,7 +186,7 @@ const SignUp = () => {
                         <div className="mt-6 text-center">
                             <p>
                                 Đã có tài khoản?{" "}
-                                <Link href="/login" className="text-green-800 hover:text-green-900">
+                                <Link href="/Login" className="text-green-800 hover:text-green-900">
                                     Đăng nhập ngay
                                 </Link>
                             </p>

@@ -65,29 +65,25 @@ const CandidateHeader = ({ onLogout }: { onLogout: () => void }) => {
                     <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-gray-700">
                         <li>
                             <Link href="/" className="hover:text-green-500">
+                                Trang chủ
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/AllJob" className="hover:text-green-500">
                                 Việc làm
                             </Link>
                         </li>
                         <li>
-                            <Link href="/cv" className="hover:text-green-500">
-                                Hồ sơ & CV
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/about" className="hover:text-green-500">
+                            <Link href="/About" className="hover:text-green-500">
                                 Giới thiệu
                             </Link>
                         </li>
                         <li>
-                            <Link href="/contact" className="hover:text-green-500">
+                            <Link href="/Contact" className="hover:text-green-500">
                                 Liên hệ
                             </Link>
                         </li>
-                        <li>
-                            <Link href="/blogs" className="hover:text-green-500">
-                                Diễn đàn
-                            </Link>
-                        </li>
+
                     </ul>
                 </nav>
                 <div className="flex flex-row sm:flex-row space-x-5 text-gray-700">
@@ -151,36 +147,32 @@ const EmployerHeader = ({ onLogout }: { onLogout: () => void }) => {
                 <nav className="hidden md:block">
                     <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-gray-700">
                         <li>
-                            <Link href="/job" className="hover:text-green-500">
+                            <Link href="/" className="hover:text-green-500">
+                                Trang chủ
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/AllJob" className="hover:text-green-500">
                                 Việc làm
                             </Link>
                         </li>
                         <li>
-                            <Link href="/cv" className="hover:text-green-500">
-                                Hồ sơ & CV
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/about" className="hover:text-green-500">
+                            <Link href="/About" className="hover:text-green-500">
                                 Giới thiệu
                             </Link>
                         </li>
                         <li>
-                            <Link href="/contact" className="hover:text-green-500">
+                            <Link href="/Contact" className="hover:text-green-500">
                                 Liên hệ
                             </Link>
                         </li>
-                        <li>
-                            <Link href="/blogs" className="hover:text-green-500">
-                                Diễn đàn
-                            </Link>
-                        </li>
+
                     </ul>
                 </nav>
                 <div className="flex flex-row sm:flex-row space-x-5 text-gray-700">
                     <div className="relative group hidden sm:block">
                         <button className="px-3 py-2 bg-green-600 text-white rounded-full cursor-pointer text-xs font-semibold hover:bg-green-700">
-                            Quản lý tuyển dụng ≫
+                            <Link href="/Vacancy">Quản lý tuyển dụng ≫</Link>
                         </button>
                     </div>
                     <a href="/noti">
@@ -243,30 +235,26 @@ const GuestHeader = ({ onLogout }: { onLogout: () => void }) => {
                 <nav className="hidden md:block">
                     <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 text-gray-700">
                         <li>
-                            <Link href="/job" className="hover:text-green-500">
+                            <Link href="/" className="hover:text-green-500">
+                                Trang chủ
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/AllJob" className="hover:text-green-500">
                                 Việc làm
                             </Link>
                         </li>
                         <li>
-                            <Link href="/cv" className="hover:text-green-500">
-                                Hồ sơ & CV
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/about" className="hover:text-green-500">
+                            <Link href="/About" className="hover:text-green-500">
                                 Giới thiệu
                             </Link>
                         </li>
                         <li>
-                            <Link href="/contact" className="hover:text-green-500">
+                            <Link href="/Contact" className="hover:text-green-500">
                                 Liên hệ
                             </Link>
                         </li>
-                        <li>
-                            <Link href="/blogs" className="hover:text-green-500">
-                                Diễn đàn
-                            </Link>
-                        </li>
+
                     </ul>
                 </nav>
                 <div className="flex flex-row sm:flex-row space-x-5 text-gray-700">

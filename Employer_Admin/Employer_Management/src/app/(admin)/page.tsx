@@ -22,7 +22,7 @@ export default function Ecommerce() {
       </div>
 
       <div className="col-span-12 xl:col-span-5">
-        <MonthlyTarget />
+        <MonthlyTarget posts={[]} />
       </div>
 
       <div className="col-span-12">
