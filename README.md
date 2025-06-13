@@ -37,7 +37,7 @@
 | ------ |:-------------:| ----------------------:|----------------------------------------------------------:|-------------------------:
 | 1 | 23521631 | Trần Ngọc Minh Trang |[minh0trang](https://github.com/minh0trang) |23521631@gm.uit.edu.vn |
 | 2 | 23521615 | Nguyễn Thị Ngọc Trâm |[NgocTram2412](https://github.com/NgocTram2412) |23521615@gm.uit.edu.vn |
-| 3 | 23520433 | Nguyễn Trần Kim Hân |[han-nguyen-uit](https://github.com/Hvinh1212) |23520433@gm.uit.edu.vn |
+| 3 | 23520433 | Nguyễn Trần Kim Hân |[han-nguyen-uit](https://github.com/han-nguyen-uit) |23520433@gm.uit.edu.vn |
 | 4 | 19522283 | Nguyễn Ngọc Thịnh |[James1108Nguyen](https://github.com/James1108Nguyen) |19522283@gm.uit.edu.vn |
 | 5 | 22521673 | Mai Hoàng Vinh |[Hvinh1212](https://github.com/Hvinh1212) |22521673@gm.uit.edu.vn |
 
