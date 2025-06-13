@@ -40,7 +40,8 @@ const branchRoute = require("./routes/branchRoute.js")
 const categoryRoute = require("./routes/categoryRoute.js")
 const forgotPassRoute = require("./routes/forgotPassRoute.js")
 const confirmPassRoute = require("./routes/confirmPassRoute.js")
-
+const jobTestRoute = require("./routes/jobTestRoute.js")
+const testQuestionRoute = require("./routes/testQuestionRoute.js")
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -61,7 +62,8 @@ app.use("/", branchRoute)
 app.use("/", categoryRoute)
 app.use("/", forgotPassRoute)
 app.use("/", confirmPassRoute)
-
+app.use("/", jobTestRoute)
+app.use("/", testQuestionRoute)
 
 app.listen(PORT, () => {
   console.log("Server is running on port:", PORT);

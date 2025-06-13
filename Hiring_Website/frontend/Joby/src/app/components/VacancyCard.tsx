@@ -19,7 +19,7 @@ export interface VacancyCardProps {
   views: number;
   applicants: number;
   color: "blue" | "red" | "purple";
-  status: string
+  status: string;
   job_id: string;
   employer_id: string;
   name_title: string;
@@ -44,7 +44,9 @@ export default function VacancyCard({
   onHide,
 }: VacancyCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isShow, setIsShow] = useState(status === "đang hiển thị" ? true : false);
+  const [isShow, setIsShow] = useState(
+    status === "đang hiển thị" ? true : false
+  );
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -67,7 +69,11 @@ export default function VacancyCard({
 
   return (
     <>
-      <div className={`${!isShow ? 'opacity-50' : ''} bg-white rounded-xl p-4 shadow-md flex flex-col gap-4 w-full`}>
+      <div
+        className={`${
+          !isShow ? "opacity-50" : ""
+        } bg-white rounded-xl p-4 shadow-md flex flex-col gap-4 w-full`}
+      >
         {isModalOpen ? (
           <div className="inset-0 flex items-center justify-center bg-opacity-100">
             <div className="bg-white p-3 rounded-lg shadow-lg">
@@ -75,7 +81,8 @@ export default function VacancyCard({
                 {isShow ? "Ẩn" : "Hiện"} tin tuyển dụng
               </h2>
               <p className="mb-3">
-                Bạn có chắc chắn muốn {isShow ? "ẩn" : "hiện"} tin tuyển dụng này không?
+                Bạn có chắc chắn muốn {isShow ? "ẩn" : "hiện"} tin tuyển dụng
+                này không?
               </p>
               <div className="flex justify-end">
                 <button
@@ -93,72 +100,76 @@ export default function VacancyCard({
               </div>
             </div>
           </div>
-        ) : (<div>
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-sm text-gray-400">Vị trí</p>
-              <h2 className="font-semibold text-lg text-gray-800">{title}</h2>
-              <br />
+        ) : (
+          <div>
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-sm text-gray-400">Vị trí</p>
+                <h2 className="font-semibold text-lg text-gray-800">{title}</h2>
+                <br />
+              </div>
+              <div>
+                {is_verify ? (
+                  <button>
+                    {isShow ? (
+                      <FontAwesomeIcon
+                        icon={faToggleOn}
+                        className="text-2xl cursor-pointer text-green-500"
+                        onClick={openModal}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faToggleOff}
+                        className="text-2xl cursor-pointer text-gray-500"
+                        onClick={openModal}
+                      />
+                    )}
+                  </button>
+                ) : (
+                  <span className="text-red-500 font-semibold">
+                    Chờ phê duyệt
+                  </span>
+                )}
+              </div>
             </div>
-            <div>
-              {is_verify ? (
-                <button>
-                  {isShow ? (
-                    <FontAwesomeIcon
-                      icon={faToggleOn}
-                      className="text-2xl cursor-pointer text-green-500"
-                      onClick={openModal}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faToggleOff}
-                      className="text-2xl cursor-pointer text-gray-500"
-                      onClick={openModal}
-                    />
-                  )}
-                </button>
-              ) : (
-                <span className="text-red-500 font-semibold">Chờ phê duyệt</span>
-              )}
-            </div>
-          </div>
 
-          <div className="flex flex-col gap-1 text-sm text-gray-500">
-            <div className="flex items-center gap-2">
-              <span>
-                <FontAwesomeIcon icon={faHourglassHalf} />
-              </span>
-              <span>
-                Deadline:{" "}
-                <span className="font-medium">
-                  {deadline.split("T")[0].split("-").reverse().join("-")}
+            <div className="flex flex-col gap-1 text-sm text-gray-500">
+              <div className="flex items-center gap-2">
+                <span>
+                  <FontAwesomeIcon icon={faHourglassHalf} />
                 </span>
-              </span>
+                <span>
+                  Deadline:{" "}
+                  <span className="font-medium">
+                    {deadline.split("T")[0].split("-").reverse().join("-")}
+                  </span>
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>
+                  <FontAwesomeIcon icon={faEye} />
+                </span>
+                <span>Views: {views}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>
+                  <FontAwesomeIcon icon={faUser} />
+                </span>
+                <span>Applicants: {applicants}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span>
-                <FontAwesomeIcon icon={faEye} />
-              </span>
-              <span>Views: {views}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>
-                <FontAwesomeIcon icon={faUser} />
-              </span>
-              <span>Applicants: {applicants}</span>
+
+            <div className="flex justify-center pt-2 border-t">
+              <button className="text-gray-400 hover:text-gray-600 cursor-pointer">
+                <Link
+                  href={`/JobDetails/${name_title}-${job_id}-${employer_id}`}
+                >
+                  <FaEye size={20} />
+                </Link>
+              </button>
             </div>
           </div>
-
-          <div className="flex justify-center pt-2 border-t">
-            <button className="text-gray-400 hover:text-gray-600 cursor-pointer">
-              <Link href={`/JobDetails/${name_title}-${job_id}-${employer_id}`}>
-                <FaEye size={20} />
-              </Link>
-            </button>
-          </div>
-        </div>)}
-
-
+        )}
       </div>
     </>
   );

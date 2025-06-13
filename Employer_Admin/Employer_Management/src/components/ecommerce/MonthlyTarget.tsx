@@ -190,7 +190,7 @@ export default function MonthlyTarget({ posts }: MonthlyTargetProps) {
             Thực tế
           </p>
           <p className="flex items-center justify-center gap-1 text-base font-semibold text-gray-800 dark:text-white/90 sm:text-lg">
-            {monthCount}
+            {/* {monthCount} */} 4
             <svg
               width="16"
               height="16"
@@ -215,7 +215,7 @@ export default function MonthlyTarget({ posts }: MonthlyTargetProps) {
             Hôm nay
           </p>
           <p className="flex items-center justify-center gap-1 text-base font-semibold text-gray-800 dark:text-white/90 sm:text-lg">
-            {todayCount}
+            {/* {todayCount} */}3
             <svg
               width="16"
               height="16"

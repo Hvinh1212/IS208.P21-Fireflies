@@ -19,7 +19,7 @@ export default function Profile() {
             Quản lý tin tuyển dụng
           </h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Quản lý và theo dõi các đơn ứng tuyển của ứng viên
+            Quản lý tin tuyển dụng của nhà tuyển dụng
           </p>
         </div>
         <div className="flex items-center gap-3">

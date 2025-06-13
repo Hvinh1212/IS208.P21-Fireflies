@@ -34,7 +34,7 @@ export default function VacancyList() {
 
   const vacancy_update = vacancies.map((vacancy) => ({
     ...vacancy,
-    views: Math.floor(Math.random() * 10000),
+    views: Math.floor(Math.random() * 20),
   }));
 
   const handleDeleteVacancy = (job_id: string) => {
@@ -43,28 +43,28 @@ export default function VacancyList() {
 
   const handleShowVacacy = (job_id: string) => {
     fetch(`http://localhost:5000/posts/show/${job_id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
   };
 
   const handleHideVacancy = (job_id: string) => {
     fetch(`http://localhost:5000/posts/hide/${job_id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
   };
 
   const handleAddVacancy = async (vacancyData: any) => {
     try {
-      const response = await fetch('http://localhost:5000/posts', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/posts", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...vacancyData,
@@ -73,13 +73,13 @@ export default function VacancyList() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add vacancy');
+        throw new Error("Failed to add vacancy");
       }
 
       const newVacancy = await response.json();
-      setVacancies(prev => [...prev, newVacancy]);
+      setVacancies((prev) => [...prev, newVacancy]);
     } catch (error) {
-      console.error('Error adding vacancy:', error);
+      console.error("Error adding vacancy:", error);
     }
   };
 

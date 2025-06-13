@@ -47,8 +47,8 @@ function SidebarContent() {
                 {[
                     { icon: CgProfile, label: 'Tin tuyển dụng', link: "/Vacancy" },
                     { icon: FaRegComments, label: 'Theo dõi', link: "/HiringTracking" },
+                    { icon: MdOutlineSpaceDashboard, label: 'Kiểm tra đầu vào', link: "/JobTests" },
                     { icon: MdOutlineAnalytics, label: 'Phân tích', link: "/Analize" },
-                    { icon: MdOutlineSpaceDashboard, label: 'Kiểm tra đầu vào', link: "/Testing" },
                 ].map((item, idx) => (
                     <SidebarItem key={idx} Icon={item.icon} label={item.label} link={item.link} />
                 ))}
