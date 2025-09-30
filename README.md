@@ -1,47 +1,58 @@
-<p align="center">
-  <a href="https://www.uit.edu.vn/" title="Trường Đại học Công nghệ Thông tin" style="border: 5;">
-    <img src="https://i.imgur.com/WmMnSRt.png" alt="Trường Đại học Công nghệ Thông tin | University of Information Technology">
-  </a>
-</p>
+# Website Quản lý Tuyển Dụng
 
-<!-- Title -->
-<h1 align="center"><b>IS208 - QUẢN LÝ DỰ ÁN CNTT</b></h1>
+## Giới thiệu
 
-## BẢNG MỤC LỤC
+Website Quản lý Tuyển Dụng là dự án nhằm hỗ trợ kết nối giữa nhà tuyển dụng và ứng viên, quản lý quy trình tuyển dụng hiện đại, minh bạch và hiệu quả.
 
-- [ Giới thiệu môn học](#gioithieumonhoc)
-- [ Giảng viên hướng dẫn](#giangvien)
-- [ Thành viên nhóm](#thanhvien)
-- [ Đồ án môn học](#doan)
+## Tính năng chính
 
-## GIỚI THIỆU MÔN HỌC
+- Đăng tuyển và quản lý tin tuyển dụng cho nhà tuyển dụng
+- Ứng viên tạo hồ sơ, nộp đơn ứng tuyển, upload CV/PDF
+- Quản lý trạng thái ứng tuyển, xác thực hồ sơ
+- Bộ lọc, tìm kiếm việc làm thông minh
+- Quản lý thông tin ứng viên, nhà tuyển dụng
+- Thống kê, báo cáo quá trình tuyển dụng
 
-<a name="gioithieumonhoc"></a>
+## Công nghệ sử dụng
 
-- **Tên môn học**: Quản lý dự án CNTT - Information Technology Project Management
-- **Mã môn học**: IS208
-- **Lớp học**: IS208.P21
-- **Năm học**: 2024-2025
-- **Nhóm**: Fireflies
+- **Frontend:** Next.js, React, Tailwind CSS, TypeScript
+- **Backend:** Node.js, Express.js, MongoDB, AWS S3 (lưu trữ file)
+- **Quản lý mã nguồn:** GitHub
 
-## GIẢNG VIÊN HƯỚNG DẪN
+## Cài đặt & chạy dự án
 
-<a name="giangvien"></a>
+1. **Clone repository:**
 
-- ThS. **Tạ Việt Phương** - *phuongtv@uit.edu.vn*
+   ```sh
+   git clone <repo-url>
+   cd <project-folder>
+   ```
 
-## THÀNH VIÊN NHÓM
+2. **Cài đặt các package:**
 
-<a name="thanhvien"></a>
-| STT | MSSV | Họ và Tên | Github | Email |
-| ------ |:-------------:| ----------------------:|----------------------------------------------------------:|-------------------------:
-| 1 | 23521631 | Trần Ngọc Minh Trang |[minh0trang](https://github.com/minh0trang) |23521631@gm.uit.edu.vn |
-| 2 | 23521615 | Nguyễn Thị Ngọc Trâm |[NgocTram2412](https://github.com/NgocTram2412) |23521615@gm.uit.edu.vn |
-| 3 | 23520433 | Nguyễn Trần Kim Hân |[han-nguyen-uit](https://github.com/han-nguyen-uit) |23520433@gm.uit.edu.vn |
-| 4 | 19522283 | Nguyễn Ngọc Thịnh |[James1108Nguyen](https://github.com/James1108Nguyen) |19522283@gm.uit.edu.vn |
-| 5 | 22521673 | Mai Hoàng Vinh |[Hvinh1212](https://github.com/Hvinh1212) |22521673@gm.uit.edu.vn |
+   ```sh
+   cd Hiring_Website/backend
+   npm install
+   cd ../frontend/Joby
+   npm install
+   ```
 
-## ĐỒ ÁN MÔN HỌC
+3. **Cấu hình biến môi trường:**  
+   Tạo file `.env` cho backend với thông tin kết nối MongoDB, AWS S3,...
 
-<a name="doan"></a>
-Đồ án Nhóm: Phát triển Website Quản lý Tuyển Dụng.
+4. **Khởi chạy server:**
+
+   ```sh
+   cd Hiring_Website/backend
+   npm start
+   ```
+
+5. **Khởi chạy frontend:**
+
+   ```sh
+   cd Hiring_Website/frontend/Joby
+   npm run dev
+   ```
+
+6. **Truy cập:**  
+   Mở trình duyệt tại [http://localhost:3000](http://localhost:3000)
